@@ -74,3 +74,19 @@ class HelloViewSet(viewsets.ViewSet):
                 serializer.errors,
                 status=status.HTTP_400_BAD_REQUEST
             )
+    
+    def retrieve(self, request,pk=None):
+        #Obtiene un objeto y su ID
+        return Response({'http_method':'GET'})
+    
+    def update(self, request,pk=None):
+        #Actualiza un objeto
+        return Response({'http_method':'PUT'})
+    
+    def partial_update(self, request,pk=None):
+        #Actualiza parcialmente el objeto
+        return Response({'http_method':'PATCH'})
+
+    def destroy(self, request,pk=None):
+        #Destruye un objeto
+        return Response({'http_method':'DELETE'})
