@@ -49,6 +49,9 @@ class HelloApiView(APIView):
 class HelloViewSet(viewsets.ViewSet):
     #Api de tes viewset
 
+    #Se invoca al serializar para realizar operaciones(CRUD)
+    serializer_class = serializer.HelloSerializer
+
     def list(self,request):
     #Retornar mensaje de Hola Mundo
         a_viewset = [
@@ -57,3 +60,17 @@ class HelloViewSet(viewsets.ViewSet):
             'Provee mas funcionalidad con menos codigo'
         ]
         return Response({'message':'Hola!','a_viewset':a_viewset})
+    
+    def create(self,request):
+        #Crear datos, para crear un mensaje hola mundo
+        serializer = self.serializer_class(data=request.data)
+
+        if serializer.is_valid():
+            name = serializer.validated_data.get('name')
+            message = f"Hola{name}"
+            return Response({'message':message})
+        else:
+            return Response(
+                serializer.errors,
+                status=status.HTTP_400_BAD_REQUEST
+            )
