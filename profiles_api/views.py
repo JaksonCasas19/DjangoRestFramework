@@ -99,3 +99,4 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
      serializer_class = serializer.UserProfileSerializer #Llamar desde el serializador
      queryset = models.UserProfile.objects.all()
+     authentication_classes = (TokenAuthentication)
