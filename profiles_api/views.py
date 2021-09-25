@@ -116,3 +116,7 @@ class UserProfileFeedViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     serializer_class = serializers.ProfileFeedItemSerializer
     queryset = models.ProfileFeedItem.objects.all()
+
+    #Funcion para setear el perfil del usuario que esta logeado
+    def perform_create(self, serializer):
+        serializer.save(user_profile=self.request.user)
