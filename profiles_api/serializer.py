@@ -25,5 +25,11 @@ class UserProfileSerializer(serializers.ModelSerializer):
             name = validated_data['name'],
             password = validated_data['password']
         )
-
         return user
+
+    def update(self, instance, validated_data):
+        #Actualiza cuenta de usuario
+        if 'password' in validated_data:
+            password = validated_data.pop('password')
+            instance.set_password(password)
+        return super().update(instance, validated_data)
