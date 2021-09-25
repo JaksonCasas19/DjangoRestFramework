@@ -8,6 +8,7 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register('hello-viewset',views.HelloViewSet,basename='hello-viewset')
+router.register('profile',views.UserProfileViewSet) #Crear una URL de la vista
 
 urlpatterns = [
     path('hello-view',views.HelloApiView.as_view()),
