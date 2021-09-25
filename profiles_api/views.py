@@ -2,14 +2,14 @@ from re import search
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, filters
-from profiles_api import serializer, models, permissions
+from profiles_api import serializers, models, permissions
 from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 
 
 class HelloApiView(APIView):
     #Clase Api View de prueba
-    serializer_class = serializer.HelloSerializer
+    serializer_class = serializers.HelloSerializer
 
     def get(self,request,format=None):
         #Retornar lista de caracteristicas del APIView
@@ -53,7 +53,7 @@ class HelloViewSet(viewsets.ViewSet):
     #Api de tes viewset
 
     #Se invoca al serializar para realizar operaciones(CRUD)
-    serializer_class = serializer.HelloSerializer
+    serializer_class = serializers.HelloSerializer
 
     def list(self,request):
     #Retornar mensaje de Hola Mundo
@@ -97,9 +97,10 @@ class HelloViewSet(viewsets.ViewSet):
 
 #Crear y actualizar perfiles
 class UserProfileViewSet(viewsets.ModelViewSet):
-     serializer_class = serializer.UserProfileSerializer #Llamar desde el serializador
-     queryset = models.UserProfile.objects.all()
-     authentication_classes = (TokenAuthentication,)
-     permissions_clasess = (permissions.UpdateOwnProfile,)
-     filters_backend = (filters.SearchFilter,)
-     search_fields = ('name','email',)
+    """ Crear y actualiizar perfiles """
+    serializer_class = serializers.UserProfileSerializer
+    queryset = models.UserProfile.objects.all()
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.UpdateOwnProfile,)
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name', 'email',)
